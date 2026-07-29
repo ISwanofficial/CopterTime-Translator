@@ -2,22 +2,49 @@
 ROV,подводный аппарат (ROV)
 underwater robot,подводный аппарат
 thruster,движитель
+propulsion system,движительная система
 tether,кабель-трос
+tether spool,катушка кабеля-троса
 tether reel,катушка кабеля-троса
+tether connector,разъём кабеля-троса
 depth holding,удержание глубины
+depth hold,удержание глубины
 attitude mode,режим стабилизации положения
+sport mode,спортивный режим
+combination mode,комбинированный режим
 controller,пульт управления
-remote controller,пульт управления
+remote controller,пульт дистанционного управления
+left joystick,левый джойстик
+right joystick,правый джойстик
+left wheel,левое колесо
+right wheel,правое колесо
 yaw,рыскание
 pitch,тангаж
 roll,крен
 gimbal,подвес
 firmware,прошивка
+firmware update,обновление прошивки
 failsafe,аварийный режим
 propeller,гребной винт
 battery,аккумулятор
 charging port,разъём зарядки
 power button,кнопка питания
+clamp release button,кнопка разблокировки зажима
+smart device clamp,зажим для мобильного устройства
+microSD card slot,слот карты microSD
+LED brightness,яркость светодиода
+record/stop,запись/остановка
+snapshot,фото
 quick start guide,краткое руководство пользователя
 warning,предупреждение
 notice,примечание
+caution,внимание
+definition,описание
+preparation,подготовка
+app install,установка приложения
+robotic arm,манипулятор
+water sampler,пробоотборник воды
+2D image sonar,двухмерный визуализирующий сонар
+underwater positioning,подводное позиционирование
+route planning,планирование маршрута
+optional accessory,дополнительный аксессуар

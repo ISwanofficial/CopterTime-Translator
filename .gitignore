@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.spec
+output/
+translation_cache.sqlite3
+*.log
+.vscode/
+.idea/
+*.docx
+*.pdf

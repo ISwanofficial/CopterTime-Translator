@@ -11,7 +11,7 @@ from document_processor import DocumentProcessor
 from exporter import export_docx_to_pdf
 from translator_engine import OnlineTranslator
 
-APP_TITLE = "CopterTime Translator v0.2.1"
+APP_TITLE = "CopterTime Translator v0.3"
 
 
 class TranslatorApp(tk.Tk):
@@ -57,6 +57,7 @@ class TranslatorApp(tk.Tk):
         glossary_box.pack(fill="x", pady=(12, 0))
         ttk.Entry(glossary_box, textvariable=self.glossary_var).pack(side="left", fill="x", expand=True)
         ttk.Button(glossary_box, text="Выбрать…", command=self._choose_glossary).pack(side="left", padx=(8, 0))
+        ttk.Button(glossary_box, text="Открыть словарь", command=self._open_glossary).pack(side="left", padx=(8, 0))
 
         options = ttk.LabelFrame(outer, text="Параметры", padding=12)
         options.pack(fill="x", pady=(12, 0))
@@ -99,6 +100,17 @@ class TranslatorApp(tk.Tk):
         )
         if filename:
             self.glossary_var.set(filename)
+
+    def _open_glossary(self) -> None:
+        import os
+        glossary = Path(self.glossary_var.get().strip().strip('"'))
+        if not glossary.exists():
+            messagebox.showerror(APP_TITLE, "Файл словаря не найден.")
+            return
+        try:
+            os.startfile(str(glossary))
+        except Exception as exc:
+            messagebox.showerror(APP_TITLE, f"Не удалось открыть словарь:\n{exc}")
 
     def _append_log(self, line: str) -> None:
         self.log.configure(state="normal")

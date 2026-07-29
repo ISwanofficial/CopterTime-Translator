@@ -64,7 +64,7 @@ class Glossary:
         replacements: dict[str, str] = {}
         protected = text
         for index, (source, target) in enumerate(self.entries):
-            token = f"CTTERM{index:04d}X"
+            token = f"ZZCT{index:04d}ZZ"
             pattern = re.compile(rf"(?<!\w){re.escape(source)}(?!\w)", re.I)
             if pattern.search(protected):
                 protected = pattern.sub(token, protected)
@@ -76,6 +76,27 @@ class Glossary:
         result = text
         for token, target in replacements.items():
             result = re.sub(re.escape(token), target, result, flags=re.I)
+        return result
+
+
+class TechnicalPostProcessor:
+    RULES = [
+        (re.compile(r"\bФото\s*\(Снимок\)\b", re.I), "Фото"),
+        (re.compile(r"\bВКЛ\s*/\s*ВЫКЛ\b", re.I), "Вкл./выкл."),
+        (re.compile(r"\bРазъем\b", re.I), "Разъём"),
+        (re.compile(r"\bкабель-трос\s+подводный аппарат\s*\(ROV\)\s*Вилка\b", re.I),
+         "Разъём кабеля-троса подводного аппарата (ROV)"),
+        (re.compile(r"\bкабель-трос\s+Разъём RC\b", re.I), "Разъём RC кабеля-троса"),
+        (re.compile(r"\bПо пути есть (?:еще|ещё) аксессуары\.?\b", re.I), "Дополнительные аксессуары"),
+    ]
+
+    @classmethod
+    def apply(cls, text: str) -> str:
+        result = text
+        for pattern, replacement in cls.RULES:
+            result = pattern.sub(replacement, result)
+        result = re.sub(r"[ \t]+([,.;:!?])", r"\1", result)
+        result = re.sub(r" {2,}", " ", result)
         return result
 
 
@@ -209,6 +230,7 @@ class OnlineTranslator:
 
         result = " ".join(part.strip() for part in parts if part)
         result = self.glossary.restore(result, replacements)
+        result = TechnicalPostProcessor.apply(result)
         result = leading + result + trailing
         self.cache.put(text, result)
         return result
